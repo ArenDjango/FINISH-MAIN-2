@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Post -->
+
+
+                            
+                            <hr>
+                            <h3>Форум</h3>
+                            {% if user.is_authenticated %}
+                            <a href="create/">
+                            <small style="float: right; margin-top: -11px;">
+                            Задавать вопрос
+                        </small>
+                            </a>
+                            {% endif %}
+
+                              <hr>
+
+
+
+{% for obj in object_list %}
+<article class="post">
+
+                                    <div class="post-header">
+                                        <h2 class="post-title">
+                                            <a href="{{ obj.get_absolute_url }}">
+                                            {{ obj.title }}
+
+                                            
+
+                                        </a></h2>
+                                        <ul class="post-meta">
+                                            <li>
+                                            <i 
+                                            class="fas fa-calendar-alt"></i>    
+                                            {{ obj.timestamp }}</li>
+                                            <li><i 
+                                            class="mdi mdi-tag-text-outline"></i><a href="#">
+                                            {{ obj.user.get_full_name }}
+                                            </a></li>
+                                            <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="#">{{ obj.categ }}</a>
+                                            </li>
+
+                                            
+                                        </ul>
+                                    </div>
+
+                                    
+
+                                    
+
+                                   <!--  <div><a style="color: #35a49c;" href="{{ obj.get_absolute_url }}" class="btn btn-outline-custom">Читать <i class="fa fa-arrow-right"></i></a></div> -->
+
+                                </article>
+                                <hr>
+                                {% endfor %}
+                                
+                                <!-- Pagination-->
+                                <div class="row">
+                                    <div class="col-lg-12">
+
+                                        <div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?{{ page_request_var }}=1&q=
+            {{ request.GET.q }}"> 
+            <button class="btn mybtnpag lastpagright">
+            <i class="fas fa-angle-double-left"></i> 
+            </button>
+            </a>
+            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}&q=
+            {{ request.GET.q }}">
+            <button class="btn mybtnpag"><i class="fas fa-angle-left"></i>
+            </button>
+            </a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ object_list.number }} из 
+            {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}&q=
+            {{ request.GET.q }}">
+            <button class="btn mybtnpag"><i class="fas fa-angle-right"></i> 
+            </button>
+            </a>
+            <a href="?{{ page_request_var }}={{ object_list.paginator.num_pages }}&q=
+            {{ request.GET.q }}"> 
+            <button class="btn mybtnpag lastpagleft">
+            <i class="fas fa-angle-double-right"></i> 
+            </button>
+            </a>
+        {% endif %}
+        
+    </span>
+</div>
+
+
+                                    </div>
+                                </div>
+                                <!-- Pagination end-->
+
+                                <!-- ../ End Post -->
+{% endblock content %}

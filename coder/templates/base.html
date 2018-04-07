@@ -1,0 +1,329 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" 
+    href="https://d30y9cdsu7xlg0.cloudfront.net/png/13694-200.png" 
+    type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <title>{% block head_title %}Coder{% endblock head_title %}</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-light bg-light justify-content-between bg-dark">
+
+  <a style="color: white;" class="navbar-brand logomy">
+  <i class="fas fa-code"></i>Coder
+  </a>
+
+  <!-- Language -->
+  <div class="form-group" style="height: 20px;">
+
+  <select class="form-control" id="sel1">
+    <option>Russian</option>
+    <option>English</option>
+  </select>
+</div>
+  <!-- ../ Language -->
+</nav>
+    </header>
+
+    <section class="categories">
+    
+      <div class="container-fluid">
+        <div class="row">
+            
+          <div class="col-lg-2 col-md-12 categori" 
+          style="background-color: #f0f4f7;">
+          <div style="margin-top: 40px;"></div>
+          
+            <ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link" href="/"><i class="fas fa-home"></i>Главная</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/forum/"><i class="fas fa-comment"></i>Форум</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/about/"><i class="fas fa-envelope"></i>Контакты</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/uslugi/"><i class="fas fa-question-circle"></i>Услуги</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><i class="fas fa-angle-double-right"></i>Ещё</a>
+  </li>
+
+</ul>
+  <hr>
+
+
+      
+    <ul class="nav flex-column">
+  
+  {% if request.user.is_authenticated %}
+    <li class="nav-item">
+    <a class="nav-link usercateg" href="">
+    {{ user.get_full_name }}
+    </a>
+        </li>
+        {% else %}
+
+      <li class="nav-item">
+    <a class="nav-link usercateg" href="">
+    Пользователь
+    </a>
+        </li>
+        {%  endif%}
+
+{% if request.user.is_authenticated %}
+        <li class="nav-item">
+    <a class="nav-link" href="/kabinet/"><i class="fas fa-user"></i>
+    Личный кабинет
+    </a>
+        </li>
+
+        <li class="nav-item">
+    <a class="nav-link" href="#"><i class="fas fa-share-square"></i>
+    Подписки
+    </a>
+        </li>
+
+        <li class="nav-item">
+    <a class="nav-link" href="#"><i class="fas fa-cog"></i>
+    Настройки
+    </a>
+        </li>
+        <li class="nav-item">
+    <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>
+    Выйти
+    </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+    <a class="nav-link" href="{% url 'register' %}">
+    <i class="fas fa-database"></i>
+    Регистрация
+    </a>
+        </li>
+        <li class="nav-item">
+    <a class="nav-link" href="{% url 'login' %}">
+    <i class="fas fa-sign-in-alt"></i>
+    Войти
+    </a>
+        </li>
+
+        {% endif %}
+    </ul>
+  <hr>
+
+          </div>
+            
+           <!--  Rightcool , search -->
+          <div class="col-lg-10 col-md-10">
+            <!-- Search widget-->
+          
+              
+                              
+                              <!-- Posts all -->
+                              <section class="mt-5 pb-5">
+                              <div class="container">
+                              <div class="row"> <!-- News and tags -->
+
+                               <div class="col-xl-8">
+                              
+                              
+                              <!-- Post-->
+                                {% block content %}
+
+                                {% endblock content %}
+                                <!-- Post end-->
+                                
+
+                               
+
+                                </div> <!-- ../xol-xl-8 -->
+                          
+                                 <!-- Sidebar-->
+                            <div class="col-xl-4">
+                                <div class="sidebar">
+
+                                    
+
+                                    <aside class="widget about-widget">
+                                        <div class="widget-title"><p 
+                                          style="color: #4A4A4A" class="bannermy">
+                                        Создание
+                                      Андроид игры на движке Unity 5</p>
+</div>
+
+                                        <div class="text-center">
+                                            <a href="http://game.itproger.com/">
+                                              <img style="width: 390px;" src="
+                                            {% static 'img/unity5.png' %}" 
+                                            alt="About Me" 
+                                            class=""></a>
+
+                                            <p>В ходе видеокурса мы с вами создадим игру, которую вы сейчас можете скачать из Google Play или из App Store. В самом видеокурсе мы как раз будем создавать именно такую игру, рассматривая все моменты публикации и разработки...</p>
+                                        </div>
+
+                                    </aside>
+
+                                    <aside class="widget about-widget">
+                                        <div class="widget-title">
+                                        Subscribe & Follow</div>
+
+                                        <ul class="socials">
+                                            <li><a href="http://facebook.com"><i class="fab fa-facebook-square"></i>
+                                            </a></li>
+                                            <li><a href="http://twitter.com"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="http://instagram.com"><i class="fab fa-instagram"></i></a>
+                                            </li>
+                                            <li><a href="http://pinterest.com"><i class="fab fa-pinterest-p"></i></a></li>
+                                        </ul>
+
+                                    </aside>
+
+                                    <!-- Categories widget-->
+                                    <aside class="widget widget_categories">
+                                        <div class="widget-title">Categories</div>
+                                        <ul>
+                                            <li><a href="#">Journey</a> (40)</li>
+                                            <li><a href="#">Photography</a> (08)</li>
+                                            <li><a href="#">Lifestyle</a> (11)</li>
+                                            <li><a href="#">Food & Drinks</a> (21)</li>
+                                        </ul>
+                                    </aside>
+
+                                    <!-- Recent entries widget-->
+                                    
+
+                                    <!-- Text widget-->
+                                    <aside class="widget">
+                                        <div class="widget-title">Text Widget</div>
+
+                                        <p class="text-muted text-widget-des">Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade swag. </p>
+
+                                    </aside>
+
+                                    <!-- Archives widget-->
+                                    <aside class="widget">
+                                        <div class="widget-title">Архивы
+                                        </div>
+
+                                        <ul>
+                                            <li><a href="#">March 2017</a> (40)</li>
+                                            <li><a href="#">April 2017</a> (08)</li>
+                                            <li><a href="#">May 2017</a> (11)</li>
+                                            <li><a href="#">Jun 2017</a> (21)</li>
+                                        </ul>
+
+                                    </aside>
+
+                                    <!-- Tags widget-->
+                                    <aside class="widget widget_tag_cloud">
+                                        <div class="widget-title">Tags</div>
+                                        <div class="tagcloud">
+                                            <a href="/?q=python">Python
+                                            </a>
+                                            <a href="/?q=web">Web</a>
+                                            <a href="/?q=хобби">хобби</a>
+                                            <a href="/?q=IT">
+                                            It новости</a>
+                                            <a href="/?q=безопасность">безопасность</a>
+                                          <a href="/?q=программирование">
+                                              программирование
+                                            </a>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- Sidebar end-->
+                            </div><!-- end row news and tags -->
+                            </div>
+
+
+                    
+                            </section>
+
+
+
+          </div>
+
+        </div>
+      </div>
+      
+
+   
+      
+    </section>
+    <footer class="footermy">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-4 col-md-4">
+              <p class="footerp">
+              Дизайни и Разработка - Aren Atabekyan 2018 
+              </p>
+            </div>
+            <div class="col-lg-8 col-md-8"></div>
+          </div>
+        </div>
+        </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+
+    <!-- My Script -->
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.17/marked.min.js"></script>
+
+    <script src="http://code.jquery.com/jquery-1.12.2.min.js"   
+    integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk="   
+    crossorigin="anonymous"></script>
+    <!-- Чтобы в detail html код был как html а не как обычный текст -->
+    <script type="text/javascript">
+
+
+        
+    $(document).ready(function(){
+        $(".content-markdown").each(function(){
+          var content = $(this).text()
+          var markedContent = marked(content)
+          $(this).html(markedContent)
+        })
+
+         $("img").each(function(){
+            $(this).addClass("img-fluid");
+          })
+
+        
+        $(document).on('click', '.comment-reply-btn', function() {
+        event.preventDefault();
+        var parent = $(this).parent()
+        parent.next(".comment-reply").fadeToggle();
+    });
+
+        $(".myformcomment textarea").addClass("mytextcommented")
+        $(".mytextcommented").attr("placeholder", "Оставить комментарии");
+
+
+    })
+    </script>
+
+
+  </body>
+</html>

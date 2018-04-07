@@ -1,0 +1,12 @@
+<form class='form' method='POST' action="">
+{% csrf_token %}
+<input name="username" 
+value="{% if username %}{{ username }}{% else %}jmitchel3{% endif %}" 
+class="form-control pr-5" type="hidden" placeholder="Поиск...">
+
+<button class='btn {% if request.user in userobj.followers.all %}btn-default{% else %}btn-primary{% endif %} buttonsub'>
+{% if request.user in userobj.followers.all %}Отписаться
+{% else %}Подписаться{% endif %}</button>
+</form>
+
+</form>

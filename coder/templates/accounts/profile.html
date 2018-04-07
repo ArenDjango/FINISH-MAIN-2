@@ -1,0 +1,163 @@
+
+{% if user.is_authenticated %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" 
+    href="https://d30y9cdsu7xlg0.cloudfront.net/png/13694-200.png" 
+    type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+    <title>{% block head_title %}Coder{% endblock head_title %}</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-light bg-light justify-content-between bg-dark">
+
+  <a style="color: white;" class="navbar-brand logomy">
+  <i class="fas fa-code"></i>Coder
+  </a>
+
+  <!-- Language -->
+  <div class="form-group" style="height: 20px;">
+
+  <select class="form-control" id="sel1">
+    <option>Russian</option>
+    <option>English</option>
+  </select>
+</div>
+  <!-- ../ Language -->
+</nav>
+    </header>
+
+    <section class="categories">
+    
+      <div class="container-fluid">
+        <div class="row">
+            
+          <div class="col-lg-2 col-md-12 categori" 
+          style="background-color: #f0f4f7;">
+          <div style="margin-top: 40px;"></div>
+          
+            <ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link" href="/"><i class="fas fa-home"></i>Главная</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/forum/"><i class="fas fa-comment"></i>Форум</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/about/"><i class="fas fa-envelope"></i>Контакты</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/uslugi/"><i class="fas fa-question-circle"></i>Услуги</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><i class="fas fa-angle-double-right"></i>Ещё</a>
+  </li>
+
+</ul>
+  <hr>
+
+
+      
+    <ul class="nav flex-column">
+  
+      {% if request.user.is_authenticated %}
+    <li class="nav-item">
+    <a class="nav-link usercateg" href="">
+    {{ user.get_full_name }}
+    </a>
+        </li>
+        {% else %}
+
+      <li class="nav-item">
+    <a class="nav-link usercateg" href="">
+    Пользователь
+    </a>
+        </li>
+        {%  endif%}
+
+{% if request.user.is_authenticated %}
+        <li class="nav-item">
+    <a class="nav-link" href="/kabinet/"><i class="fas fa-user"></i>
+    Личный кабинет
+    </a>
+        </li>
+
+        <li class="nav-item">
+    <a class="nav-link" href="#"><i class="fas fa-share-square"></i>
+    Подписки
+    </a>
+        </li>
+
+        <li class="nav-item">
+    <a class="nav-link" href="#"><i class="fas fa-cog"></i>
+    Настройки
+    </a>
+        </li>
+        <li class="nav-item">
+    <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>
+    Выйти
+    </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+    <a class="nav-link" href="{% url 'register' %}">
+    <i class="fas fa-database"></i>
+    Регистрация
+    </a>
+        </li>
+        <li class="nav-item">
+    <a class="nav-link" href="{% url 'login' %}">
+    <i class="fas fa-sign-in-alt"></i>
+    Войти
+    </a>
+        </li>
+
+        {% endif %}
+    </ul>
+  <br>
+ 
+
+          </div>
+
+          {% block content %}
+
+          {% endblock content %}
+
+   </section>
+
+    <footer class="footermy">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-4 col-md-4">
+              <p class="footerp">
+              Дизайни и Разработка - Aren Atabekyan 
+              </p>
+            </div>
+            <div class="col-lg-8 col-md-8"></div>
+          </div>
+        </div>
+        </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+{% else %}
+<p>У вас нет права</p>
+{% endif %}

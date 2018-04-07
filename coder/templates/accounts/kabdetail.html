@@ -1,0 +1,61 @@
+{% extends 'accounts/profile.html' %}
+{% block content %}
+<!-- Profile-->
+<div class="col-8">
+<article class="post">
+
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-12 leftprofilemy">
+        <br>
+        <img class="img-fluid" 
+        src="{{ userobj.user.userprofile.avatar.url }}">
+      <hr>
+      <div>
+{% include 'accounts/includes/follow_form.html' %}
+</div>
+<br>
+          </div>
+      <div class="col-md-1 col-sm-12 rovnoprofilem"></div>
+      <div class="col-md-7 col-sm-12 rightprofilemy">
+        <br>
+        {% if userobj.user.is_superuser %}
+                        <h2 class="post-title usernameingosti">
+                        {{ userobj.user.get_full_name }}
+                    <i title="Администратор" 
+                          class="fas fa-chevron-circle-down"
+                            style="color:#4a76a8;">
+                         </i>
+                        </h2>
+                                        {% else %}
+                            <h2 class="post-title usernameingosti">
+                            {{ userobj.user.get_full_name }}
+                           </h2>
+                                        {% endif %}
+        <hr>
+        <br>
+        <p>{{ userobj.followers.count }} Подписчиков</p>
+          <hr>
+            
+
+            Место работы -
+        <a href="/kabinet/kablist/?d={{ userobj.placework }}">
+           {{ userobj.placework }}</a>
+          <hr>
+          Город -
+        <a href="/kabinet/kablist/?d={{ userobj.city }}">
+           {{ userobj.city }}</a>
+          <hr>
+
+      </div>
+    </div>
+  </div>                                      
+  
+
+
+ 
+
+                                  
+
+                                </article>
+                                {% endblock content %}

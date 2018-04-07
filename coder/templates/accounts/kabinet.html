@@ -1,0 +1,104 @@
+{% extends 'accounts/profile.html' %}
+
+{% load crispy_forms_tags %}
+{% block head_extra %} 
+
+  {{ form.media }}
+
+{% endblock head_extra %}
+
+{% load static %}
+
+       {% block content %}  
+ 
+          
+                                    <!-- Profile-->
+                                    <div class="col-8">
+
+                                        <!-- Post-->
+                                        <article class="post">
+                                        
+                                       
+
+{% if user.is_authenticated %}
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-12 leftprofilemy">
+        <br>
+        {% if user.userprofile.avatar %}
+          <img class="img-fluid" src="{{ user.userprofile.avatar.url }}">
+          {% else %}
+          <img class="img-fluid" src="{% static 'img/default_avatar.png' %}">
+          <br>
+          <form method="post" action="." enctype='multipart/form-data'>
+          {% csrf_token %}
+          {{ forming|crispy }}
+      <input type="submit" value="Загружать фото"
+      class="btn btn-default">
+      </form>
+      {% endif %}
+      <hr>
+      <a href="update/"><p>Изменить данные</p></a>
+          <hr>
+          <a href="delete/"><p>Удалить фото</p></a>
+          <hr>
+          {% if user.is_superuser %}
+          <a href="/create/"><p>Добавить статью</p></a>
+          <hr>
+          {% endif %}
+          </div>
+      <div class="col-md-1 col-sm-12 rovnoprofilem"></div>
+      <div class="col-md-7 col-sm-12 rightprofilemy">
+        <br>
+  
+                        {% if user.is_superuser %}
+                          <p title="Администратор" >
+                          {{ user.get_full_name }}
+                          <i title="Администратор" 
+                    class="fas fa-chevron-circle-down"
+                    style="color:#4a76a8;">
+                   </i>
+                    </p>
+                    {% else %}
+                      <p>
+                      {{ user.get_full_name }}</p>
+                       {% endif %}
+
+        <hr>
+        <br>
+        <p>{{ user.userprofile.followers.count }} Подписчиков</p>
+          <hr>
+
+
+            
+            Место работы -
+        <a href="/kabinet/kablist/?d={{ user.userprofile.placework }}">
+           {{ user.userprofile.placework }}</a>
+          <hr>
+          Город -
+        <a href="/kabinet/kablist/?d={{ user.userprofile.city }}">
+           {{ user.userprofile.city }}</a>
+          <hr>
+          <a href="kablist/">Найти друзей</a>
+          <hr>
+
+      </div>
+    </div>
+  </div> 
+  {% endif %}
+
+
+
+                                        </article>
+
+
+
+
+
+
+                                        <!-- Post end-->
+
+                                    
+      
+
+    {% endblock content %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<aside class="widget widget_search">
+                                  <form>
+                                     <input name="d" value="{{ request.GET.d }}" 
+                                      class="form-control pr-5" type="search" placeholder="Поиск пользователей">
+                                      <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+                                  </form>
+                              </aside>
+
+                              <hr>
+
+
+{% for users in users_list %}
+
+
+<!-- <ul class="userslistclass">
+	<li>{{ users.user.get_full_name }}</li>
+</ul> -->
+
+
+
+<article class="post">
+
+                                    <div class="post-header">
+                                        <ul class="post-meta">
+                                            <li><i 
+                                         class="mdi mdi-tag-text-outline"></i>
+                                         <a 
+                                       href="{{ users.user_get_absolute_url }}">
+                                      <img style="height: 50px; margin-right: 6px;" src="
+                    {{ users.user.userprofile.avatar.url }}" 
+              						alt="">
+                                            {{ users.user.get_full_name }}
+                                            </a></li>
+
+
+                                            
+                                        </ul>
+                                    </div>
+
+                                    
+
+                                    
+
+                                   <!--  <div><a style="color: #35a49c;" href="{{ obj.get_absolute_url }}" class="btn btn-outline-custom">Читать <i class="fa fa-arrow-right"></i></a></div> -->
+
+                                </article>
+
+{% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+{{ block.super }} | {{ instance.title }}
+{% endblock head_title %}
+
+{% block content %}
+
+
+
+<!-- Post-->
+                                <article class="post">
+
+                                    <div class="post-header">
+                                        <h2 class="post-title"><a href="#">
+                                            {{ instance.title }}
+                                        </a></h2>
+                                        <ul class="post-meta">
+                                            <li><i class="fas fa-calendar-alt">
+                                              
+                                            </i>{{ instance.timestamp }}</li>
+                                            <li><i class="mdi mdi-tag-text-outline"></i>
+                                            <a href="#">
+                                    {{ instance.user.get_full_name }}</a></li>
+                                            <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="#">{{ instance.categ }}</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="post-preview">
+                                    {% if instance.image %}
+                                        <a href="#">
+                                        <img src="{{ instance.image.url }}" 
+                                        alt="" class="img-fluid rounded"></a>
+                                        {% endif %}
+                                    </div>
+
+<div class="post-content content-markdown"><p>{{ instance.content }}
+</p>
+    </div>
+
+
+
+
+                                  
+                                
+                                </article>
+                                <!-- Post end-->
+                                
+                                {% if user.is_superuser %}
+                                <hr>
+                                <a href="edit/">Изменить</a> | 
+                                <a href="">Удалить</a>
+                                <p>{{ instance.prosmotr }} Просмотров</p>
+                                <hr>
+                                {% else %}
+                                <hr>
+                                
+                                <p>{{ instance.prosmotr }} Просмотров</p>
+                                
+                                
+                                <hr>
+                                {% endif %}
+                                
+                                
+                                <!-- Comments -->
+                                
+                                <div class="commentses">
+                                  {% if comments.count > 1 %}
+          <h5>{{ comments.count }} комментариев</h5>
+          {% else %}
+          <h5>{{ comments.count }} Коммент</h5>
+          {% endif %}
+                                    
+                                    {% if request.user.is_authenticated %}
+          <form class="myformcomment" method="POST" action=".">
+            {% csrf_token %}
+            {{ comment_form|crispy }}
+            <input type="submit" value="Комментировать"
+            class="btn btn-default mycommentbutton">
+          </form>
+          {% else %}
+          <p>Войдите в систему чтобы оставить комментарии</p>
+          {% endif %}
+          <br>
+          <br>
+            
+
+
+            {% for comment in comments %} <!-- .. -->
+
+              <blockquote class="">
+                <a href="
+                /kabinet/kablist">
+              <strong 
+              style="
+                  font-size: 0.90rem;             
+              ">
+              <img style="height: 50px; margin-right: 6px;" src="{{ comment.user.userprofile.avatar.url }}" 
+              alt="">
+              {{ comment.user.get_full_name }}</strong>
+              </a> <br>
+              {{ comment.content }}<br>
+
+              <small>{{ comment.timestamp|timesince }} назад |
+              {% if comment.children.count > 0 %}{{ comment.children.count }}
+              Ответ{% if comment.children.count > 1 %}ы{% endif %} | 
+              {% endif %}
+              <a class="comment-reply-btn" href='#'>Ответить </a>
+              <a class="" href='{{ comment.get_absolute_url }}'> Подробно</a>
+              </small>
+
+              <div class="comment-reply">
+              {% for child_comment in comment.children %}
+              <blockquote style="margin-left: 20px; margin-top: 20px;">
+                <strong style="font-size: 0.90rem;">
+                    <img style="height: 50px; margin-right: 6px;" src="
+                    {{ child_comment.user.userprofile.avatar.url }}" 
+              alt="">
+              {{ child_comment.user.get_full_name }}
+              </strong> 
+              <br>
+              {{ child_comment.content }} <br />
+              <small>{{ child_comment.timestamp|timesince }} назад</small>
+              </blockquote>
+              {% endfor %}
+
+              {% if request.user.is_authenticated %}
+              <form class="myformcomment" method="POST" action=".">
+                {% csrf_token %}
+                  {{ comment_form|crispy }}
+                  <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                  <input type="submit" value="Ответить"
+                class="btn btn-default mycommentbutton">
+            </form>
+            {% else %}
+            <p>Войдите в систему чтобы оставить комментарии</p>
+            {% endif %}
+            </div> <!-- ../ comment-reply -->
+
+            </blockquote>
+              <hr>
+
+            {% endfor %} <!-- ../ -->
+
+                                </div>
+
+                                <script type="text/javascript">
+document.getElementById('.myformcomment textarea').placeholder = 'Нужный текст';
+
+                                </script>
+                                <!-- ../Comments -->
+                                {% endblock content %}

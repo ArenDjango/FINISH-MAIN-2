@@ -1,0 +1,85 @@
+{% extends 'accounts/profile.html' %}
+
+{% load crispy_forms_tags %}
+{% block head_extra %} 
+
+  {{ form.media }}
+
+{% endblock head_extra %}
+
+{% load static %}
+
+       {% block content %}  
+           <!--  About, forms -->
+          <div class="col-lg-10 col-md-10">
+             <div class="page-wrapper">
+                <section class="h-100vh pt-5">
+                    <div class="home-center">
+                        <div class="home-desc-center">
+                            <div class="container">
+
+                                <div class="row justify-content-center">
+                                    <!-- Content-->
+                                    <div class="col-8">
+
+                                        <!-- Post-->
+                                        <article class="post">
+                                        
+                                     
+                                          {% if user.is_authenticated %}
+                                        
+                                        
+          <img src="{{ user.userprofile.avatar.url }}">
+          {% else %}
+          <img src="{% static 'img/default_avatar.png' %}">
+          {% endif %}
+          
+
+          <form class="formtextuseredit" 
+          method="POST" action="." enctype='multipart/form-data'>
+          {% csrf_token %}
+          {{ formimg|crispy }}
+      <input type="submit" value="Сохранить"
+      class="btn btn-default">
+      </form>
+
+
+                                        <br><br>
+                                            {% if user.is_superuser %}
+                                            <p title="Администратор" >
+                                            {{ user.get_full_name }}
+                                            <i title="Администратор" 
+                                            class="fas fa-chevron-circle-down"
+                                            style="color:#4a76a8;">
+                                            </i>
+                                            </p>
+                                            {% else %}
+                                            <p>
+                                            {{ user.get_full_name }}</p>
+                                            {% endif %}
+                                            
+                                          <br>
+                                            <hr>
+                                            {% if user.is_superuser %}
+                                            <a href="/create/">Добавить статью</a>
+                                            <hr>
+                                            {% endif %}
+                                        </article>
+                                        <!-- Post end-->
+
+                                    </div>
+                                    <!-- Content end-->
+
+                                </div>
+
+                            </div>
+                            <!-- end container -->
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+      
+
+    {% endblock content %}
